@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AnamnesaController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GeneralIdeaController;
+use App\Http\Controllers\HasilAkhirController;
+use App\Http\Controllers\HipotesisController;
 use App\Http\Controllers\KonsulController;
 use App\Http\Controllers\UserController;
 use App\Models\GeneralIdea;
@@ -54,7 +57,13 @@ Route::get('admin/list_user', [UserController::class, 'listuser'])->name('listus
 Route::get('admin/{id}', [UserController::class, 'detailuser'])->name('detailuser');
 
 Route::get('acc/{id}', [KonsulController::class, 'acc'])->name('acc');
+Route::get('dcc/{id}', [KonsulController::class, 'dcc'])->name('dcc');
 Route::get('/admin/detail_konsul/{id}', [KonsulController::class, 'detailkonsul'])->name('detailkonsul');
 Route::post('/admin/aturjadwalgeneralidea', [GeneralIdeaController::class, 'store'])->name('generalidea-store');
-Route::get('/generalidea/{id}', [GeneralIdeaController::class, 'lihatjawaban'])->name('lihatjawaban');
+Route::get('/admin/generalidea/{id}', [GeneralIdeaController::class, 'lihatjawaban'])->name('lihatjawaban');
 Route::post('/inputhasil/{id}', [GeneralIdeaController::class, 'inputhasil'])->name('inputhasil');
+Route::post('/admin/aturjadwalanamnesa', [AnamnesaController::class, 'store'])->name('anamnesa-store');
+Route::post('/admin/updateanamnesa/{id}', [AnamnesaController::class, 'selesai_anamnesa'])->name('selesai_anamnesa');
+Route::post('/admin/inputhipotesis', [HipotesisController::class, 'store'])->name('hipotesis-store');
+
+Route::post('/admin/inputhasilakhir', [HasilAkhirController::class, 'store'])->name('hasilakhir-store');

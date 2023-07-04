@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\GeneralIdea;
+use App\Models\Konsul;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -75,8 +77,10 @@ class GeneralIdeaController extends Controller
     public function lihatjawaban($id)
     {
         $gi = GeneralIdea::where('id', $id)->first();
+        $user = User::where('id', $gi->user_id)->first();
+        $konsul = Konsul::where('id', $gi->konsul_id)->first();
 
-        return view('lihatjawaban', compact('gi'));
+        return view('admin.lihatjawaban', compact(['gi', 'user', 'konsul']));
     }
 
     public function inputhasil($id, Request $request)

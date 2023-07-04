@@ -27,4 +27,19 @@ class Konsul extends Model
     {
         return $this->hasOne(GeneralIdea::class);
     }
+
+    public function anamnesa()
+    {
+        return $this->hasOne(Anamnesa::class);
+    }
+
+    public function hipotesis()
+    {
+        return $this->hasOne(Hipotesis::class);
+    }
+
+    public function hasilakhir()
+    {
+        return $this->hasOne(HasilAkhir::class);
+    }
 }

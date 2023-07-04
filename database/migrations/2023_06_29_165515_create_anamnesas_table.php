@@ -13,23 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('general_ideas', function (Blueprint $table) {
+        Schema::create('anamnesas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('konsul_id')->references('id')->on('konsuls')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('start_test')->nullable();
             $table->dateTime('end_test')->nullable();
-            $table->string('j1')->nullable();
-            $table->string('j2')->nullable();
-            $table->string('j3')->nullable();
-            $table->string('j4')->nullable();
-            $table->string('j5')->nullable();
-            $table->string('j6')->nullable();
-            $table->string('j7')->nullable();
-            $table->string('j8')->nullable();
-            $table->string('j9')->nullable();
-            $table->string('j10')->nullable();
-            $table->string('hasil')->nullable();
+            $table->string('bukti_chat')->nullable();
             $table->enum('status', ['belum', 'sudah'])->nullable();
             $table->timestamps();
         });
@@ -42,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('general_ideas');
+        Schema::dropIfExists('anamnesas');
     }
 };

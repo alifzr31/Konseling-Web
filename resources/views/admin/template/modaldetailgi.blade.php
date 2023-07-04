@@ -3,7 +3,7 @@
             <div class="modal-dialog modal-dialog-scrollable" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalScrollableTitle" style="text-transform: capitalize;">Detail Data Test</h5>
+                  <h5 class="modal-title" id="exampleModalScrollableTitle" style="text-transform: capitalize;">Detail Data Test General Idea</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

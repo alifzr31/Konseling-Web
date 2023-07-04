@@ -116,7 +116,7 @@
                           <a href="{{ route('acc', $ks->id) }}" class="btn btn-success">
                             <i class="fas fa-check"></i>
                           </a>
-                          <a href="#" class="btn btn-danger">
+                          <a href="{{ route('dcc', $ks->id) }}" class="btn btn-danger">
                             <i class="fas fa-times"></i>
                           </a>
                         @endif
