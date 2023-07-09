@@ -17,6 +17,10 @@
         <title>Enigma Putra Mandiri | Admin - List Data User</title>
     @endif
 
+    @if (Route::current()->getName() == 'listkonsul')
+        <title>Enigma Putra Mandiri | Admin - List Data Konsultasi</title>
+    @endif
+
     @if (Route::current()->getName() == 'detailuser')
         <title>Enigma Putra Mandiri | Admin - Detail Data User</title>
     @endif
@@ -61,7 +65,7 @@
             <div class="sidebar-heading">
                 Data
             </div>
-            <li class="nav-item @if (Route::current()->getName() == 'listuser' || Route::current()->getName() == 'detailuser') active @endif">
+            {{-- <li class="nav-item @if (Route::current()->getName() == 'listuser' || Route::current()->getName() == 'detailuser') active @endif">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
                     aria-expanded="true" aria-controls="collapseTable">
                     <i class="fas fa-fw fa-table"></i>
@@ -82,6 +86,12 @@
                         <a class="collapse-item" href="datatables.html">Hipotesis</a>
                     </div>
                 </div>
+            </li> --}}
+            <li class="nav-item @if (Route::current()->getName() == 'listkonsul') active @endif">
+                <a class="nav-link" href="{{ route('listkonsul') }}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Konsultasi</span>
+                </a>
             </li>
         </ul>
         <!-- Sidebar -->
@@ -101,13 +111,14 @@
                                     <img class="img-profile rounded-circle" src="{{ url('../img/boy.png') }}"
                                         style="max-width: 60px">
                                 @else
-                                    <img class="img-profile rounded-circle" src="{{ url('img/boy.png') }}" style="max-width: 60px">
+                                    <img class="img-profile rounded-circle" src="{{ url('img/boy.png') }}"
+                                        style="max-width: 60px">
                                 @endif
-                                <span class="ml-2 d-none d-lg-inline text-white small">Maman Ketoprak</span>
+                                <span class="ml-2 d-none d-lg-inline text-white small text-capitalize">{{ Auth::user()->nama }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                {{-- <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -119,7 +130,7 @@
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
                                 </a>
-                                <div class="dropdown-divider"></div>
+                                <div class="dropdown-divider"></div> --}}
                                 <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"
                                     data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

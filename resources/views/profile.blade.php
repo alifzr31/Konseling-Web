@@ -141,31 +141,34 @@
                     <table class="table table-striped">
                         <thead>
                             <tr style="background-color: rgba(255, 94, 20, 0.9); color: rgb(2, 36, 91)">
-                                <th scope="col">ID.</th>
-                                <th scope="col">Nama Lengkap</th>
                                 <th scope="col">Kecenderungan</th>
                                 <th scope="col">Mulai Konsultasi</th>
                                 <th scope="col">Selesai Konsultasi</th>
                                 <th scope="col">Bukti Pembayaran</th>
                                 <th scope="col">Status</th>
+                                <th scope="col"></th>
                         </thead>
                         <tbody style="text-transform: capitalize;">
                             @forelse ($konsul as $ks)
                                 <tr>
-                                    <td>{{ $ks->id }}</td>
-                                    <td>{{ Auth::user()->nama }}</td>
                                     <td>{{ $ks->kecenderungan }}</td>
 
                                     @if ($ks->start_test == null)
                                         <td>-</td>
                                     @else
-                                        <td>{{ $ks->start_test }}</td>
+                                        <?php
+                                        $start_test = date_create($ks->start_test);
+                                        ?>
+                                        <td>{{ date_format($start_test, 'd F Y') }}</td>
                                     @endif
 
                                     @if ($ks->end_test == null)
                                         <td>-</td>
                                     @else
-                                        <td>{{ $ks->end_test }}</td>
+                                        <?php
+                                        $end_test = date_create($ks->end_test);
+                                        ?>
+                                        <td>{{ date_format($end_test, 'd F Y') }}</td>
                                     @endif
 
                                     @if ($ks->bukti_pembayaran == null || $ks->bukti_pembayaran == 'pembayaran ditolak')
@@ -180,10 +183,19 @@
                                             </form>
                                         </td>
                                     @else
-                                        <td style="text-transform: lowercase;"><a href="{{ Storage::url('public/bukti_pembayaran/').$ks->bukti_pembayaran}}" target="_blank">{{ $ks->bukti_pembayaran }}</a></td>
+                                        <td style="text-transform: lowercase;"><a
+                                                href="{{ Storage::url('public/bukti_pembayaran/') . $ks->bukti_pembayaran }}"
+                                                target="_blank">{{ $ks->bukti_pembayaran }}</a></td>
                                     @endif
 
                                     <td>{{ $ks->status }}</td>
+                                    <td>
+                                        @if ($ks->hasilakhir()->count() > 0)
+                                            <a href="{{ route('showHasilAkhir', $ks->id) }}" class="btn btn-primary">Hasil Akhir</a>
+                                        @else
+                                            <button disabled class="btn btn-primary">Hasil Akhir</button>
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <div class="alert alert-danger">

@@ -30,13 +30,17 @@
     @if (Route::current()->getName() == 'mulaites')
         <title>Enigma Putra Mandiri - Test General Idea</title>
     @endif
-    
+
+    @if (Route::current()->getName() == 'showHasilAkhir')
+        <title>Enigma Putra Mandiri - Hasil Akhir Konsultasi</title>
+    @endif
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/logo.png" rel="icon">
+    <link href="{{ url('img/logo.png') }}" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,15 +54,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="{{ url('lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ url('lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ url('css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -100,7 +104,8 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top py-0 pe-5">
         <a href="index.html" class="navbar-brand ps-5 me-0">
-            <h1 class="text-white m-0"><img src="img/logo.png" alt="Enigma" style="width: 20%;"> Enigma</h1>
+            <h1 class="text-white m-0"><img src="{{ url('img/logo.png') }}" alt="Enigma" style="width: 20%;"> Enigma
+            </h1>
         </a>
         <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -109,45 +114,56 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 @if (Route::current()->getName() == 'mulaites')
                     @auth
-                    @if (Auth::user()->role == 'user')
-                        <div class="nav-item">
-                            <a class="nav-link" style="cursor: default;" data-bs-toggle="dropdown"></a>
-                        </div>
-                    
-                        <div class="nav-item">
-                            <a class="nav-link @if (Route::current()->getName() == 'editprofil') active @endif" style="cursor: default; text-transform: capitalize;" data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
-                        </div>
-                    @endif
-                    @endauth
-
-                    @auth
-                    @if (Auth::user()->role == 'admin')
-                        <div class="nav-item">
-                            <a class="nav-link" style="cursor: default;" data-bs-toggle="dropdown"></a>
-                        </div>
-                        
-                        <div class="nav-item">
-                            <a class="nav-link @if (Route::current()->getName() == 'editprofil') active @endif" style="cursor: default; text-transform: capitalize;" data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
-                        </div>
-                    @endif
-                    @endauth
-                @else
-                    <a href="{{ route('index') }}" class="nav-item nav-link @if (Route::current()->getName() == 'index') active @endif">Home</a>
-                    <a href="{{ route('about') }}" class="nav-item nav-link @if (Route::current()->getName() == 'about') active @endif">About</a>
-                    <a href="{{ route('contact') }}" class="nav-item nav-link @if (Route::current()->getName() == 'contact') active @endif">Contact</a>
-
-                    @auth
                         @if (Auth::user()->role == 'user')
-                            <a href="{{ route('konsultasi') }}" class="nav-item nav-link @if (Route::current()->getName() == 'konsultasi' || Route::current()->getName() == 'rekening') active @endif">Konsultasi</a>
-                            
                             <div class="nav-item">
                                 <a class="nav-link" style="cursor: default;" data-bs-toggle="dropdown"></a>
                             </div>
-                        
+
+                            <div class="nav-item">
+                                <a class="nav-link @if (Route::current()->getName() == 'editprofil') active @endif"
+                                    style="cursor: default; text-transform: capitalize;"
+                                    data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
+                            </div>
+                        @endif
+                    @endauth
+
+                    @auth
+                        @if (Auth::user()->role == 'admin')
+                            <div class="nav-item">
+                                <a class="nav-link" style="cursor: default;" data-bs-toggle="dropdown"></a>
+                            </div>
+
+                            <div class="nav-item">
+                                <a class="nav-link @if (Route::current()->getName() == 'editprofil') active @endif"
+                                    style="cursor: default; text-transform: capitalize;"
+                                    data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
+                            </div>
+                        @endif
+                    @endauth
+                @else
+                    <a href="{{ route('index') }}"
+                        class="nav-item nav-link @if (Route::current()->getName() == 'index') active @endif">Home</a>
+                    <a href="{{ route('about') }}"
+                        class="nav-item nav-link @if (Route::current()->getName() == 'about') active @endif">About</a>
+                    <a href="{{ route('contact') }}"
+                        class="nav-item nav-link @if (Route::current()->getName() == 'contact') active @endif">Contact</a>
+
+                    @auth
+                        @if (Auth::user()->role == 'user')
+                            <a href="{{ route('konsultasi') }}"
+                                class="nav-item nav-link @if (Route::current()->getName() == 'konsultasi' || Route::current()->getName() == 'rekening') active @endif">Konsultasi</a>
+
+                            <div class="nav-item">
+                                <a class="nav-link" style="cursor: default;" data-bs-toggle="dropdown"></a>
+                            </div>
+
                             <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle @if (Route::current()->getName() == 'editprofil') active @endif" style="cursor: default; text-transform: capitalize;" data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
+                                <a class="nav-link dropdown-toggle @if (Route::current()->getName() == 'editprofil') active @endif"
+                                    style="cursor: default; text-transform: capitalize;"
+                                    data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
                                 <div class="dropdown-menu bg-light m-0">
-                                    <a href="{{ route('editprofil') }}" class="dropdown-item @if (Route::current()->getName() == 'editprofil') text-primary @endif">Profile</a>
+                                    <a href="{{ route('editprofil') }}"
+                                        class="dropdown-item @if (Route::current()->getName() == 'editprofil') text-primary @endif">Profile</a>
                                     <a href="{{ route('logout') }}" class="dropdown-item">Log Out</a>
                                 </div>
                             </div>
@@ -156,16 +172,20 @@
 
                     @auth
                         @if (Auth::user()->role == 'admin')
-                            <a href="{{ route('konsultasi') }}" class="nav-item nav-link @if (Route::current()->getName() == 'konsultasi' || Route::current()->getName() == 'rekening') active @endif">Konsultasi</a>
-                            
+                            <a href="{{ route('konsultasi') }}"
+                                class="nav-item nav-link @if (Route::current()->getName() == 'konsultasi' || Route::current()->getName() == 'rekening') active @endif">Konsultasi</a>
+
                             <div class="nav-item">
                                 <a class="nav-link" style="cursor: default;" data-bs-toggle="dropdown"></a>
                             </div>
-                        
+
                             <div class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle @if (Route::current()->getName() == 'editprofil') active @endif" style="cursor: default; text-transform: capitalize;" data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
+                                <a class="nav-link dropdown-toggle @if (Route::current()->getName() == 'editprofil') active @endif"
+                                    style="cursor: default; text-transform: capitalize;"
+                                    data-bs-toggle="dropdown">{{ Auth::user()->nama }}</a>
                                 <div class="dropdown-menu bg-light m-0">
-                                    <a href="{{ route('editprofil') }}" class="dropdown-item @if (Route::current()->getName() == 'editprofil') text-primary @endif">Profile</a>
+                                    <a href="{{ route('editprofil') }}"
+                                        class="dropdown-item @if (Route::current()->getName() == 'editprofil') text-primary @endif">Profile</a>
                                     <a href="{{ route('logout') }}" class="dropdown-item">Log Out</a>
                                 </div>
                             </div>

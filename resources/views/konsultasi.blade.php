@@ -150,7 +150,8 @@
         @if ($hipoCount > 0 && $hasilCount < 1)
             <div class="col-lg-12 col-md-12 wow fadeInUp mt-5" data-wow-delay="0.1s">
                 <div class="alert alert-info mt-2">
-                    <center>Seluruh test sudah selesai. Harap tunggu admin memberi hasil akhir konsultasi. Terima Kasih</center>
+                    <center>Seluruh test sudah selesai. Harap tunggu admin memberi hasil akhir konsultasi. Terima Kasih
+                    </center>
                 </div>
             </div>
         @else
@@ -167,14 +168,25 @@
                     <p>Tempat, Tanggal Lahir : {{ $user->tempat_lahir }}, {{ $tgl_lahir }}</p>
                     <p>Jenis Kelamin : {{ $user->jk }}</p>
                 </div>
-                <div class="bg-light p-5">
-                    <h4 class="mb-3">Gambaran Kondisi Psikologis</h4>
-                    <p>{{ $hasilakhir->kondisi_psikologis }}</p>
-                </div>
-                <div class="bg-light p-5">
-                    <h4 class="mb-3">Diagnosis</h4>
-                    <p>{!! nl2br($hasilakhir->diagnosis) !!}</p>
-                </div>
+                @if ($hasilAkhir != null)
+                    <div class="bg-light p-5">
+                        <h4 class="mb-3">Gambaran Kondisi Psikologis</h4>
+                        <p>{{ $hasilAkhir->kondisi_psikologis }}</p>
+                    </div>
+                    <div class="bg-light p-5">
+                        <h4 class="mb-3">Diagnosis</h4>
+                        <p>{!! nl2br($hasilAkhir->diagnosis) !!}</p>
+                    </div>
+                @else
+                    <div class="bg-light p-5">
+                        <h4 class="mb-3">Gambaran Kondisi Psikologis</h4>
+                        <p>-</p>
+                    </div>
+                    <div class="bg-light p-5">
+                        <h4 class="mb-3">Diagnosis</h4>
+                        <p>-</p>
+                    </div>
+                @endif
             </div>
         @endif
     </div>

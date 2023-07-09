@@ -36,40 +36,46 @@ class GeneralIdeaController extends Controller
 
         $id = Auth::user()->id;
         $gi = GeneralIdea::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->first();
-        
+
         return view('mulaites', compact('gi'));
     }
 
     public function submit_tes($id, Request $request)
     {
-        $this->validate($request, [
-            'j1' => 'required',
-            'j2' => 'required',
-            'j3' => 'required',
-            'j4' => 'required',
-            'j5' => 'required',
-            'j6' => 'required',
-            'j7' => 'required',
-            'j8' => 'required',
-            'j9' => 'required',
-            'j10' => 'required',
-        ]);
+        $gi = GeneralIdea::where('id', $id)->first();
 
-        $gi = GeneralIdea::where('id', $id)->update([
-            'j1' => $request->j1,
-            'j2' => $request->j2,
-            'j3' => $request->j3,
-            'j4' => $request->j4,
-            'j5' => $request->j5,
-            'j6' => $request->j6,
-            'j7' => $request->j7,
-            'j8' => $request->j8,
-            'j9' => $request->j9,
-            'j10' => $request->j10,
-            'status' => 'sudah'
-        ]);
+        if (now() > $gi->end_test) {
+            return back();
+        } else {
+            $this->validate($request, [
+                'j1' => 'required',
+                'j2' => 'required',
+                'j3' => 'required',
+                'j4' => 'required',
+                'j5' => 'required',
+                'j6' => 'required',
+                'j7' => 'required',
+                'j8' => 'required',
+                'j9' => 'required',
+                'j10' => 'required',
+            ]);
 
-        return back();
+            GeneralIdea::where('id', $id)->update([
+                'j1' => $request->j1,
+                'j2' => $request->j2,
+                'j3' => $request->j3,
+                'j4' => $request->j4,
+                'j5' => $request->j5,
+                'j6' => $request->j6,
+                'j7' => $request->j7,
+                'j8' => $request->j8,
+                'j9' => $request->j9,
+                'j10' => $request->j10,
+                'status' => 'sudah'
+            ]);
+
+            return back();
+        }
     }
 
 

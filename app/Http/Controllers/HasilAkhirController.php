@@ -31,4 +31,10 @@ class HasilAkhirController extends Controller
 
         return back();
     }
+
+    public function showHasilAkhir($konsul_id) {
+        $hasilAkhir = HasilAkhir::where('konsul_id', $konsul_id)->first();
+
+        return view('hasilakhir', compact('hasilAkhir'));
+    }
 }

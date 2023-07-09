@@ -149,10 +149,11 @@ class UserController extends Controller
         $k_bayar = Konsul::where('status', 'menunggu konfirmasi')->count();
         $jadwal = Konsul::where('status', 'menunggu jadwal tes')->count();
         $contacts = Contact::take(4)->latest()->get();
+        $user = User::latest()->get();
         // $konsul_beres = Konsul::get();
         // $tes = date_create($konsul_beres->updated_at);
         
-        return view('admin.index', compact(['jml_user', 'k_bayar', 'jadwal', 'contacts']));
+        return view('admin.index', compact(['jml_user', 'k_bayar', 'jadwal', 'contacts', 'user']));
         // return response()->json(['msg' => $konsul_beres]);
     }
 

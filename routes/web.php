@@ -42,6 +42,7 @@ Route::post('/register', [UserController::class, 'store'])->name('regstore');
 
 Route::get('/profile', [UserController::class, 'edit'])->name('editprofil');
 Route::post('/profile', [UserController::class, 'update'])->name('updateprofil');
+Route::get('/hasil_akhir/{id}', [HasilAkhirController::class, 'showHasilAkhir'])->name('showHasilAkhir');
 
 Route::get('/konsultasi', [KonsulController::class, 'konsultasi'])->name('konsultasi');
 Route::get('/konsuljiwa', [KonsulController::class, 'konsuljiwa'])->name('konsuljiwa');
@@ -54,7 +55,8 @@ Route::post('/submit_tes/{id}', [GeneralIdeaController::class, 'submit_tes'])->n
 // ADMIN
 Route::get('admin/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
 Route::get('admin/list_user', [UserController::class, 'listuser'])->name('listuser');
-Route::get('admin/{id}', [UserController::class, 'detailuser'])->name('detailuser');
+Route::get('admin/detail_user/{id}', [UserController::class, 'detailuser'])->name('detailuser');
+Route::get('admin/list_konsul', [KonsulController::class, 'listkonsul'])->name('listkonsul');
 
 Route::get('acc/{id}', [KonsulController::class, 'acc'])->name('acc');
 Route::get('dcc/{id}', [KonsulController::class, 'dcc'])->name('dcc');

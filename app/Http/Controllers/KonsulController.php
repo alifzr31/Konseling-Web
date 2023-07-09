@@ -23,22 +23,36 @@ class KonsulController extends Controller
         $id = Auth::user()->id;
         $konsul = Konsul::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->get();
         $ks = Konsul::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->first();
-        $kcount = Konsul::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->where('status', '!=','selesai')->count();
+        $kcount = Konsul::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->where('status', '!=', 'selesai')->count();
         $gi = GeneralIdea::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->first();
-        $gicount = GeneralIdea::take(1)->where('user_id', $id)->latest()->count();
         $anm = Anamnesa::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->first();
-        $anmCount = Anamnesa::take(1)->where('user_id', $id)->latest()->count();
         $hipo = Hipotesis::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->first();
-        $hipoCount = Hipotesis::take(1)->where('user_id', $id)->latest()->count();
-        $hasilakhir = HasilAkhir::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->where('konsul_id', $ks->id)->first();
-        $hasilCount = HasilAkhir::take(1)->where('user_id', $id)->latest()->count();
-        $user = User::where('id', $ks->user_id)->first();
+        // $hasilakhir = HasilAkhir::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->where('konsul_id', $ks->id)->first();
+        $user = User::where('id', $id)->first();
         $date = date_create($user->tgl_lahir);
         $tgl_lahir = date_format($date, 'd F Y');
-        
-        return view('konsultasi', compact(['konsul', 'kcount', 'gi', 'gicount', 'anmCount', 'anm', 'hipoCount', 'hipo', 'hasilCount', 'user', 'tgl_lahir', 'hasilakhir']));
+
+        if ($kcount > 0) {
+            $gicount = GeneralIdea::take(1)->where('user_id', $id)->where('konsul_id', $ks->id)->latest()->count();
+            $anmCount = Anamnesa::take(1)->where('user_id', $id)->where('konsul_id', $ks->id)->latest()->count();
+            $hipoCount = Hipotesis::take(1)->where('user_id', $id)->where('konsul_id', $ks->id)->latest()->count();
+            $hasilCount = HasilAkhir::take(1)->where('user_id', $id)->where('konsul_id', $ks->id)->latest()->count();
+        } else {
+            $gicount = 0;
+            $anmCount = 0;
+            $hipoCount = 0;
+            $hasilCount = 0;
+        }
+
+        if ($hasilCount > 0) {
+            $hasilAkhir = HasilAkhir::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->where('konsul_id', $ks->id)->first();
+        } else {
+            $hasilAkhir = '';
+        }
+
+        return view('konsultasi', compact(['konsul', 'kcount', 'gi', 'gicount', 'anmCount', 'anm', 'hipoCount', 'hipo', 'hasilCount', 'user', 'tgl_lahir', 'hasilAkhir']));
     }
-    
+
     public function konsuljiwa()
     {
         if (!Auth::user()) {
@@ -46,7 +60,7 @@ class KonsulController extends Controller
         }
 
         $id = Auth::user()->id;
-        
+
         $konsul = Konsul::create([
             'user_id' => $id,
             'kecenderungan' => 'jiwa',
@@ -78,10 +92,10 @@ class KonsulController extends Controller
         if (!Auth::user()) {
             return redirect()->route('login');
         }
-        
+
         $id = Auth::user()->id;
         $ks = Konsul::take(1)->where('user_id', $id)->latest()->get();
-        
+
         return view('rekening', compact('ks'));
     }
 
@@ -94,27 +108,27 @@ class KonsulController extends Controller
         $bukti_pembayaran = $request->file('bukti_pembayaran');
         $fileName = $bukti_pembayaran->hashName();
         $bukti_pembayaran->storeAs('public/bukti_pembayaran', $fileName);
-        
+
         $konsul = Konsul::where('id', $id)->update([
             'bukti_pembayaran' => $fileName,
             'status' => 'menunggu konfirmasi'
         ]);
-        
+
         return redirect()->route('editprofil')->with(['success' => 'Upload bukti pembayaran berhasil']);
     }
 
 
-    
+
     // ADMIN
     public function acc($id)
     {
         if (!Auth::user() || Auth::user()->role !== 'admin') {
             return redirect()->route('index');
         }
-        
+
         $acc = 'pembayaran diterima';
         $start = date('Y-m-d H:i:s');
-        
+
         Konsul::where('id', $id)->update([
             'start_test' => $start,
             'status' => $acc
@@ -128,9 +142,9 @@ class KonsulController extends Controller
         if (!Auth::user() || Auth::user()->role !== 'admin') {
             return redirect()->route('index');
         }
-        
+
         $dcc = 'pembayaran ditolak';
-        
+
         Konsul::where('id', $id)->update([
             'bukti_pembayaran' => null,
             'status' => $dcc
@@ -144,13 +158,25 @@ class KonsulController extends Controller
         if (!Auth::user() || Auth::user()->role !== 'admin') {
             return redirect()->route('index');
         }
-        
+
         $konsul = Konsul::where('id', $id)->first();
         $gicount = GeneralIdea::take(1)->where('user_id', $konsul->user_id)->where('konsul_id', $id)->latest()->count();
         $anmCount = Anamnesa::take(1)->where('user_id', $konsul->user_id)->where('konsul_id', $id)->latest()->count();
         $hipoCount = Hipotesis::take(1)->where('user_id', $konsul->user_id)->where('konsul_id', $id)->latest()->count();
         $hasilCount = HasilAkhir::take(1)->where('user_id', $konsul->user_id)->where('konsul_id', $id)->latest()->count();
+        $user = User::where('id', $konsul->user_id)->first();
 
-        return view('admin.detailkonsul', compact(['konsul', 'gicount', 'anmCount', 'hipoCount', 'hasilCount']));
+        return view('admin.detailkonsul', compact(['konsul', 'gicount', 'anmCount', 'hipoCount', 'hasilCount', 'user']));
+    }
+
+    public function listkonsul()
+    {
+        if (!Auth::user() || Auth::user()->role !== 'admin') {
+            return redirect()->route('login');
+        }
+
+        $list_konsul = Konsul::latest()->get();
+
+        return view('admin.listkonsul', compact('list_konsul'));
     }
 }

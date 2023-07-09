@@ -4,7 +4,8 @@
         <div class="row g-5">
             <div class="col-lg-4 col-md-6">
                 <h5 class="text-white mb-4">Our Office</h5>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Jl. Perum Villa Indah Permai Jl. Komodo 2 No.24, Tlk. Pucung, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17121</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Jl. Perum Villa Indah Permai Jl. Komodo 2
+                    No.24, Tlk. Pucung, Kec. Bekasi Utara, Kota Bks, Jawa Barat 17121</p>
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+62 817-551-807</p>
                 <p class="mb-2"><i class="fa fa-envelope me-3"></i>enigmaputramandiri@gmail.com</p>
                 <div class="d-flex pt-3">
@@ -48,7 +49,10 @@
 <!-- Copyright Start -->
 <div class="container-fluid copyright bg-dark py-4">
     <div class="container text-center">
-        <p class="mb-2">Copyright &copy; <script>document.write(new Date().getFullYear());</script> <a class="fw-semi-bold" href="#">Enigma Putra Mandiri</a>
+        <p class="mb-2">Copyright &copy;
+            <script>
+                document.write(new Date().getFullYear());
+            </script> <a class="fw-semi-bold" href="#">Enigma Putra Mandiri</a>
         </p>
     </div>
 </div>
@@ -63,26 +67,25 @@
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/counterup/counterup.min.js"></script>
+<script src="{{ url('lib/wow/wow.min.js') }}"></script>
+<script src="{{ url('lib/easing/easing.min.js') }}"></script>
+<script src="{{ url('lib/waypoints/waypoints.min.js') }}"></script>
+<script src="{{ url('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+<script src="{{ url('lib/counterup/counterup.min.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    <script>
-        //message with toastr
-        @if(session()->has('success'))
-        
-            toastr.success('{{ session('success') }}', 'Berhasil'); 
-        @elseif(session()->has('error'))
-            toastr.error('{{ session('error') }}', 'Gagal'); 
-            
-        @endif
-    </script>
+<script>
+    //message with toastr
+    @if (session()->has('success'))
+
+        toastr.success('{{ session('success') }}', 'Berhasil');
+    @elseif (session()->has('error'))
+        toastr.error('{{ session('error') }}', 'Gagal');
+    @endif
+</script>
 
 <!-- Template Javascript -->
-<script src="js/main.js"></script>
+<script src="{{ url('js/main.js') }}"></script>
 </body>
 
 </html>

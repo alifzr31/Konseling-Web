@@ -1,10 +1,11 @@
 @include('admin/template/head')
 <div class="container-fluid" id="container-wrapper">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Data User</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Data Konsultasi User</h1>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="./">Data User</a></li>
-            <li class="breadcrumb-item">{{ $konsul->user_id }}</li>
+            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('detailuser', $user->id) }}">Data User</a></li>
+            <li class="breadcrumb-item" style="text-transform: capitalize;">{{ $user->nama }}</li>
             <li class="breadcrumb-item active" aria-current="page">Detail Data Konsultasi</li>
         </ol>
     </div>
@@ -17,27 +18,33 @@
                     <h6 class="m-0 font-weight-bold text-primary">Data Konsultasi</h6>
                 </div>
                 <div class="card-body">
-                    <form style="text-transform: capitalize">
-                        <div class="form-group">
+                    <form>
+                        <div class="form-group" style="text-transform: capitalize">
                             <label for="exampleInputPassword1">Kecenderungan</label>
                             <br />{{ $konsul->kecenderungan }}
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="text-transform: capitalize">
                             <label for="exampleInputPassword1">Mulai Konsultasi</label>
                             <br />
                             @if ($konsul->start_test == null)
                                 -
                             @else
-                                {{ $konsul->start_test }}
+                                <?php
+                                $start_test = date_create($konsul->start_test);
+                                ?>
+                                {{ date_format($start_test, 'd F Y') }}
                             @endif
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="text-transform: capitalize">
                             <label for="exampleInputPassword1">Selesai Konsultasi</label>
                             <br />
                             @if ($konsul->end_test == null)
                                 -
                             @else
-                                {{ $konsul->end_test }}
+                                <?php
+                                $end_test = date_create($konsul->end_test);
+                                ?>
+                                {{ date_format($end_test, 'd F Y') }}
                             @endif
                         </div>
                         <div class="form-group">
@@ -49,7 +56,7 @@
                                 <a href="">{{ $konsul->bukti_pembayaran }}</a>
                             @endif
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="text-transform: capitalize">
                             <label for="exampleInputEmail1">Status</label>
                             <br />{{ $konsul->status }}
                         </div>
@@ -98,14 +105,20 @@
                                     @if ($gicount == 0)
                                         -
                                     @else
-                                        {{ $konsul->generalidea->start_test }}
+                                        <?php
+                                        $start_gi = date_create($konsul->generalidea->start_test);
+                                        ?>
+                                        {{ date_format($start_gi, 'd F Y H:i:s') }}
                                     @endif
                                 </td>
                                 <td>
                                     @if ($gicount == 0)
                                         -
                                     @else
-                                        {{ $konsul->generalidea->end_test }}
+                                        <?php
+                                        $end_gi = date_create($konsul->generalidea->end_test);
+                                        ?>
+                                        {{ date_format($end_gi, 'd F Y H:i:s') }}
                                     @endif
                                 </td>
                                 <td>
@@ -142,8 +155,18 @@
                                     <td>-</td>
                                     <td>-</td>
                                 @else
-                                    <td>{{ $konsul->anamnesa->start_test }}</td>
-                                    <td>{{ $konsul->anamnesa->end_test }}</td>
+                                    <td>
+                                        <?php
+                                        $start_anamnesa = date_create($konsul->anamnesa->start_test);
+                                        ?>
+                                        {{ date_format($start_anamnesa, 'd F Y H:i:s') }}
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $end_anamnesa = date_create($konsul->anamnesa->end_test);
+                                        ?>
+                                        {{ date_format($end_anamnesa, 'd F Y H:i:s') }}
+                                    </td>
                                     <td>{{ $konsul->anamnesa->status }}</td>
                                 @endif
                                 <td>
@@ -183,8 +206,18 @@
                                     <td>-</td>
                                     <td>-</td>
                                 @else
-                                    <td>{{ $konsul->hipotesis->start_test }}</td>
-                                    <td>{{ $konsul->hipotesis->end_test }}</td>
+                                    <td>
+                                        <?php
+                                        $start_hipo = date_create($konsul->hipotesis->start_test);
+                                        ?>
+                                        {{ date_format($start_hipo, 'd F Y H:i:s') }}
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $end_hipo = date_create($konsul->hipotesis->end_test);
+                                        ?>
+                                        {{ date_format($end_hipo, 'd F Y H:i:s') }}
+                                    </td>
                                     <td>{{ $konsul->hipotesis->status }}</td>
                                 @endif
                                 <td>
