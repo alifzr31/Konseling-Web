@@ -43,6 +43,7 @@ Route::post('/register', [UserController::class, 'store'])->name('regstore');
 Route::get('/profile', [UserController::class, 'edit'])->name('editprofil');
 Route::post('/profile', [UserController::class, 'update'])->name('updateprofil');
 Route::get('/hasil_akhir/{id}', [HasilAkhirController::class, 'showHasilAkhir'])->name('showHasilAkhir');
+Route::get('/cetak_hasil', [HasilAkhirController::class, 'cetak_pdf'])->name('cetak_pdf');
 
 Route::get('/konsultasi', [KonsulController::class, 'konsultasi'])->name('konsultasi');
 Route::get('/konsuljiwa', [KonsulController::class, 'konsuljiwa'])->name('konsuljiwa');

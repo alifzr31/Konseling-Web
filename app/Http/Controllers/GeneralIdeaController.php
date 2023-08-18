@@ -35,9 +35,10 @@ class GeneralIdeaController extends Controller
         }
 
         $id = Auth::user()->id;
+        $ks = Konsul::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->first();
         $gi = GeneralIdea::take(1)->orderBy('created_at', 'desc')->where('user_id', $id)->first();
 
-        return view('mulaites', compact('gi'));
+        return view('mulaites', compact(['gi', 'ks']));
     }
 
     public function submit_tes($id, Request $request)
@@ -58,6 +59,21 @@ class GeneralIdeaController extends Controller
                 'j8' => 'required',
                 'j9' => 'required',
                 'j10' => 'required',
+                'j11' => 'required',
+                'j12' => 'required',
+                'j13' => 'required',
+                'j14' => 'required',
+                'j15' => 'required',
+                'j16' => 'required',
+                'j17' => 'required',
+                'j18' => 'required',
+                'j19' => 'required',
+                'j20' => 'required',
+                'j21' => 'required',
+                'j22' => 'required',
+                'j23' => 'required',
+                'j24' => 'required',
+                'j25' => 'required',
             ]);
 
             GeneralIdea::where('id', $id)->update([
@@ -71,6 +87,21 @@ class GeneralIdeaController extends Controller
                 'j8' => $request->j8,
                 'j9' => $request->j9,
                 'j10' => $request->j10,
+                'j11' => $request->j11,
+                'j12' => $request->j12,
+                'j13' => $request->j13,
+                'j14' => $request->j14,
+                'j15' => $request->j15,
+                'j16' => $request->j16,
+                'j17' => $request->j17,
+                'j18' => $request->j18,
+                'j19' => $request->j19,
+                'j20' => $request->j20,
+                'j21' => $request->j21,
+                'j22' => $request->j22,
+                'j23' => $request->j23,
+                'j24' => $request->j24,
+                'j25' => $request->j25,
                 'status' => 'sudah'
             ]);
 

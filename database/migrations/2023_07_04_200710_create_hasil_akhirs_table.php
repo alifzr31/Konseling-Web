@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('konsul_id')->references('id')->on('konsuls')->onUpdate('cascade')->onDelete('cascade');
             $table->text('kondisi_psikologis')->nullable();
             $table->text('diagnosis')->nullable();
+            $table->text('ppdgj')->nullable();
             $table->timestamps();
         });
     }

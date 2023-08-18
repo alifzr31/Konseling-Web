@@ -13,7 +13,8 @@ class HasilAkhir extends Model
         'user_id',
         'konsul_id',
         'kondisi_psikologis',
-        'diagnosis'
+        'diagnosis',
+        'ppdgj'
     ];
 
     public function konsul()

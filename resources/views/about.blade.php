@@ -21,10 +21,10 @@
                 <div class="col-lg-6">
                     <div class="row gx-3 h-100">
                         <div class="col-6 align-self-start wow fadeInUp" data-wow-delay="0.1s">
-                            <img class="img-fluid" src="img/about-1.jpg">
+                            <img class="img-fluid" src="{{ url('img/ab3.jpg') }}">
                         </div>
                         <div class="col-6 align-self-end wow fadeInDown" data-wow-delay="0.1s">
-                            <img class="img-fluid" src="img/about-2.jpg">
+                            <img class="img-fluid" src="{{ url('img/ab4.jpg') }}">
                         </div>
                     </div>
                 </div>
@@ -81,10 +81,10 @@
                 <div class="col-lg-6">
                     <div class="row gx-3 h-100">
                         <div class="col-6 align-self-start wow fadeInUp" data-wow-delay="0.1s">
-                            <img class="img-fluid" src="img/about-1.jpg">
+                            <img class="img-fluid" src="{{ url('img/ab5.jpg') }}">
                         </div>
                         <div class="col-6 align-self-end wow fadeInDown" data-wow-delay="0.1s">
-                            <img class="img-fluid" src="img/about-2.jpg">
+                            <img class="img-fluid" src="{{ url('img/ab6.jpg') }}">
                         </div>
                     </div>
                 </div>

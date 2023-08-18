@@ -299,6 +299,17 @@
                                         </div>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">PPDGJ</label>
+                                    <textarea name="ppdgj" class="form-control @error('ppdgj') is-invalid @enderror"
+                                        style="height: 200px; resize: none;"></textarea>
+
+                                    @error('ppdgj')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                                 <input type="hidden" name="user_id" value="{{ $konsul->user_id }}">
                                 <input type="hidden" name="konsul_id" value="{{ $konsul->id }}">
                                 <button type="submit" class="btn btn-primary">Submit</button>
